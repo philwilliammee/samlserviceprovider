@@ -1,6 +1,6 @@
 {
     "name": "philwilliammee/samlserviceprovider",
-    "description": ":package_description",
+    "description": "A laravel package for SAML 2.0 Service Provider (SP) authentication",
     "license": "MIT",
     "authors": [
         {
