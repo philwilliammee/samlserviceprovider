@@ -1,0 +1,41 @@
+{
+    "name": "philwilliammee/samlserviceprovider",
+    "description": ":package_description",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Phil Williammee",
+            "email": "philwilliammee@gmail.com",
+            "homepage": "https://github.com/philwilliammee"
+        }
+    ],
+    "homepage": "https://github.com/philwilliammee/samlserviceprovider",
+    "keywords": ["Laravel", "SamlServiceProvider"],
+    "require": {
+        "illuminate/support": "~8|~9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~9.0",
+        "orchestra/testbench": "~9"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhilWilliammee\\SamlServiceProvider\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PhilWilliammee\\SamlServiceProvider\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PhilWilliammee\\SamlServiceProvider\\SamlServiceProviderServiceProvider"
+            ],
+            "aliases": {
+                "SamlServiceProvider": "PhilWilliammee\\SamlServiceProvider\\Facades\\SamlServiceProvider"
+            }
+        }
+    }
+}
