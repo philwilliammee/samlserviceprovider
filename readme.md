@@ -2,8 +2,6 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![Build Status][ico-travis]][link-travis]
-[![StyleCI][ico-styleci]][link-styleci]
 
 SAML2.0 Service Provider Laravel Package, use this package to log into a IDP with SAML2.0. Please feel free to contribute to this package. This package has had minimal testing, and provides no security guarantees. Use at your own risk.
 
