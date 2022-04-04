@@ -1,5 +1,5 @@
 # The license
 
-Copyright (c) Author Name <author@email.com>
+Copyright (c) Phil Williammee <philwilliammee@gmail.com>
 
 ...Add your license text here...

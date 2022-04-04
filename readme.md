@@ -5,7 +5,7 @@
 [![Build Status][ico-travis]][link-travis]
 [![StyleCI][ico-styleci]][link-styleci]
 
-This is where your description should go. Take a look at [contributing.md](contributing.md) to see a to do list.
+SAML2.0 Service Provider Laravel Package, use this package to log into a IDP with SAML2.0. Please feel free to contribute to this package. This package has had minimal testing, and provides no security guarantees. Use at your own risk.
 
 ## Installation
 
@@ -33,12 +33,11 @@ Please see [contributing.md](contributing.md) for details and a todolist.
 
 ## Security
 
-If you discover any security related issues, please email author@email.com instead of using the issue tracker.
+If you discover any security related issues, please email philwilliammee@gmail.com instead of using the issue tracker.
 
 ## Credits
 
-- [Author Name][link-author]
-- [All Contributors][link-contributors]
+- [Phil Williammee][link-author]
 
 ## License
 
