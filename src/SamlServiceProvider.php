@@ -12,6 +12,9 @@ class SamlServiceProvider
     private SamlServiceProviderBase $saml_sp;
 
     /**
+     * Renders a view that sends the user to the IDP SSO service. 
+     * The IDP SSO will then redirect back to the relay_state url.
+     * 
      * @param string $session_id
      * @param string $relay_state
      * @return \Illuminate\Contracts\View\View|\Closure|string
