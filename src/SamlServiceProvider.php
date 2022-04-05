@@ -21,11 +21,6 @@ class SamlServiceProvider
      */
     public static function login(string $session_id, string $relay_state): View|Closure|string
     {
-        $user_data = SamlServiceProvider::getAttributes($session_id);
-        if ($user_data) {
-            return redirect($relay_state);
-        }
-
         return view('samlserviceprovider::login', [
             'session_id' => $session_id,
             'relay_state' => $relay_state,

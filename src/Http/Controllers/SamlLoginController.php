@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class SamlLoginController extends Controller
 {
-
     /** creates an auth request and redirects to IDP */
     public function login(): View|Closure|string
     {
