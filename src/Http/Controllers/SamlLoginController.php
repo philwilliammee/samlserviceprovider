@@ -50,8 +50,18 @@ class SamlLoginController extends Controller
 
     public function metadata()
     {
+        // stream the metadata download
         $metadata = SamlServiceProvider::getMetadata();
-        return response($metadata, 200)
-            ->header('Content-Type', 'text/xml');
+
+        $callback = function () use ($metadata) {
+            $file = fopen('php://output', 'w');
+            fwrite($file, $metadata);
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, [
+            'Content-Type' => 'text/xml',
+            'Content-Disposition' => 'attachment; filename="metadata.xml"',
+            ]);
     }
 }

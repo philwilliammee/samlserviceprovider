@@ -4,5 +4,5 @@
     <button type="submit" class="btn submit">SAML Login</button>
 </form>
 <script>
-    document.querySelector('button').click();
+    document.forms[0].submit();;
 </script>
