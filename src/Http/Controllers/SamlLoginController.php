@@ -4,6 +4,7 @@ namespace PhilWilliammee\SamlServiceProvider\Http\Controllers;
 
 use PhilWilliammee\SamlServiceProvider\SamlServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SamlLoginController extends Controller
 {
@@ -41,9 +42,32 @@ class SamlLoginController extends Controller
      */
     public function samlAcs(Request $request)
     {
+        // Firewall request to only allowed origins.
+        $origin = $request->header('Origin');
+        if (!$origin) {
+            Log::error("No Origin header . Request: " . $request->getRequestUri());
+            return response()->json(['error' => 'Origin header is missing'], 400);
+        }
+        $destination = config('samlserviceprovider.destination');
+        $destination_url = parse_url($destination);
+        $origin_url = parse_url($origin);
+        if ($destination_url['host'] !== $origin_url['host']) {
+            Log::error("Origin header does not match destination. Origin: " . $origin_url['host'] . " Destination: " . $destination_url['host'] . " Request: " . $request->getRequestUri());
+            return response()->json(['error' => 'Origin header is not allowed'], 400);
+        }
+
+        // If scheme is not https abort
+        if ($destination_url['scheme'] !== 'https') {
+            Log::error("Destination scheme is not https. Request: " . $request->getRequestUri());
+            return response()->json(['error' => 'Destination url is not https'], 400);
+        }
+
         $encoded_saml_response = $request->get('SAMLResponse');
         $relay_state = $request->get('RelayState');
-        SamlServiceProvider::processAcsResponse($encoded_saml_response);
+        $is_successful = SamlServiceProvider::processAcsResponse($encoded_saml_response);
+        if (!$is_successful) {
+            Log::error("SAML Response is not valid. Request: " . json_encode($request->all()));
+        }
         return redirect($relay_state);
     }
 

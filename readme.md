@@ -47,8 +47,8 @@ then in the user controller call:
 You will then probably want to login the user with Laravel, something like this:
 
 ```php
-    $email = $user_attributes['email'];
-    $name = $user_attributes['name'];
+    $email = $user_attributes['mail'][0];
+    $name = $user_attributes['displayName'][0];
     $user = User::where('email', $email)->first();
     if (!$user) {
         $user = User::create([

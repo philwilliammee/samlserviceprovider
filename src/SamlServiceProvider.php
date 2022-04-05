@@ -98,12 +98,12 @@ class SamlServiceProvider
      * Assertion Consumer Service (ACS)
      * Handles the IDP assertion for the user and records the response in the database.
      */
-    public static function processAcsResponse($encoded_saml_response)
+    public static function processAcsResponse($encoded_saml_response): bool
     {
         $xml_string = SamlServiceProviderBase::decodeSamlResponse($encoded_saml_response);
         $decoded_id = SamlServiceProviderBase::getKeyFromSamlResponse($xml_string);
         $not_on_or_after = SamlServiceProviderBase::getNotOnOrAfterFromSamlResponse($xml_string);
-        SamlLogin::firstWhere('saml_id', $decoded_id)
+        return SamlLogin::firstWhere('saml_id', $decoded_id)
             ->update([
                 'xml_string' => $xml_string,
                 'not_on_or_after' => $not_on_or_after,
