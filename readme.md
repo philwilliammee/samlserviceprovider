@@ -10,10 +10,32 @@ SAML2.0 Service Provider Laravel Package, use this package to log into a IDP wit
 Via Composer
 
 ``` bash
-$ composer require philwilliammee/samlserviceprovider
+composer require philwilliammee/samlserviceprovider
 ```
 
 ## Usage
+
+Publish Config and Views with
+
+```bash
+php artisan vendor:publish --provider="PhilWilliammee\SamlServiceProvider\SamlServiceProviderServiceProvider"
+```
+
+Edit the config file in `config/samlserviceprovider.php` to your liking.
+
+This package comes with some blade templates that you can use to get you started. You can review them in `resources/views/vendor/philwilliammee`
+
+example usage:
+
+```html
+    <x-samlserviceprovider::login redirect="/user">
+        Login
+    </x-samlserviceprovider::login>
+
+    <x-samlserviceprovider::logout>
+        Logout
+    </x-samlserviceprovider::logout>
+```
 
 ## Change log
 
@@ -22,7 +44,7 @@ Please see the [changelog](changelog.md) for more information on what has change
 ## Testing
 
 ``` bash
-$ composer test
+composer test
 ```
 
 ## Contributing

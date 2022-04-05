@@ -27,7 +27,6 @@ class SamlLoginController extends Controller
         $message = "";
         if ($session_id) {
             SamlServiceProvider::logout($session_id);
-            session()->flush();
             $message = "Logged out";
         } else {
             $message = "No session_id";

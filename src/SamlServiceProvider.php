@@ -12,9 +12,9 @@ class SamlServiceProvider
     private SamlServiceProviderBase $saml_sp;
 
     /**
-     * Returns a view that automatically sends the user to the IDP SSO service. 
+     * Returns a view that automatically sends the user to the IDP SSO service.
      * The IDP SSO will then redirect back to the relay_state url.
-     * 
+     *
      * @param string $session_id
      * @param string $relay_state
      * @return \Illuminate\Contracts\View\View|\Closure|string
@@ -96,12 +96,7 @@ class SamlServiceProvider
      */
     public static function logout($session_id)
     {
-        $login = SamlLogin::firstWhere([
-            'session_id' => $session_id,
-        ]);
-        if ($login) {
-            $login->delete();
-        }
+        self::cleanUp($session_id);
     }
 
     /**
@@ -125,5 +120,13 @@ class SamlServiceProvider
         $config = config('samlserviceprovider');
         $saml_sp = new SamlServiceProviderBase($config);
         return $saml_sp->getMetadata();
+    }
+
+    public static function cleanUp($session_id)
+    {
+        SamlLogin::where([
+            'session_id' => $session_id,
+        ])->orWhere('not_on_or_after', '<', now()->subMinutes(5))
+            ->delete();
     }
 }
