@@ -37,6 +37,28 @@ example usage:
     </x-samlserviceprovider::logout>
 ```
 
+then in the user controller call:
+
+```php
+    $session_id = session()->getId();
+    $user_attributes = SamlServiceProvider::getAttributes($session_id);
+```
+
+You will then probably want to login the user with Laravel, something like this:
+
+```php
+    $email = $user_attributes['email'];
+    $name = $user_attributes['name'];
+    $user = User::where('email', $email)->first();
+    if (!$user) {
+        $user = User::create([
+            'email' => $email,
+            'name' => $name,
+        ]);
+    }
+    Auth::login($user);
+```
+
 ## Change log
 
 Please see the [changelog](changelog.md) for more information on what has changed recently.
