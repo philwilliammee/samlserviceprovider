@@ -44,21 +44,26 @@ class SamlLoginController extends Controller
     {
         // Firewall request to only allowed origins.
         $origin = $request->header('Origin');
+        $request_uri = $request->getRequestUri();
         if (!$origin) {
-            Log::error("No Origin header . Request: " . $request->getRequestUri());
+            Log::error("No Origin header . Request: " . $request_uri);
             return response()->json(['error' => 'Origin header is missing'], 400);
         }
         $destination = config('samlserviceprovider.destination');
         $destination_url = parse_url($destination);
         $origin_url = parse_url($origin);
         if ($destination_url['host'] !== $origin_url['host']) {
-            Log::error("Origin header does not match destination. Origin: " . $origin_url['host'] . " Destination: " . $destination_url['host'] . " Request: " . $request->getRequestUri());
+            $msg_str = "Origin header does not match destination.";
+            $msg_str .= " Origin: {$origin_url['host']}";
+            $msg_str .= "Destination: {$destination_url['host']}";
+            $msg_str .= " Request: {$request_uri}";
+            Log::error($msg_str);
             return response()->json(['error' => 'Origin header is not allowed'], 400);
         }
 
         // If scheme is not https abort
         if ($destination_url['scheme'] !== 'https') {
-            Log::error("Destination scheme is not https. Request: " . $request->getRequestUri());
+            Log::error("Destination scheme is not https. Request: " . $request_uri);
             return response()->json(['error' => 'Destination url is not https'], 400);
         }
 
