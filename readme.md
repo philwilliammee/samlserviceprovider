@@ -15,6 +15,12 @@ composer require philwilliammee/samlserviceprovider
 
 ## Usage
 
+Run the migrations
+
+```bash
+ php artisan migrate
+ ```
+
 Publish Config and Views with
 
 ```bash
