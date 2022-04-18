@@ -50,7 +50,7 @@ class SamlServiceProviderBase
     public function __construct($config = [])
     {
         $this->id = bin2hex(random_bytes(32));
-        $this->issue_instant = date('Y-m-d\TH:i:s\Z');
+        $this->issue_instant = gmdate('Y-m-d\TH:i:s\Z', time());
         $this->destination = $config['destination'];
         $this->issuer = $config['issuer'];
         $this->assertion_consumer_service_url = $config['assertion_consumer_service_url'];
